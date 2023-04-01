@@ -2,6 +2,7 @@ package com.yj0524;
 
 import com.yj0524.TabCom.*;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -85,7 +86,7 @@ public final class Main extends JavaPlugin {
 
                             for (Player player : getServer().getOnlinePlayers()) {
                                 player.sendTitle(ChatColor.GREEN + "뽑기 결과", ChatColor.YELLOW + selectedData, 0, 60, 20);
-                                player.playSound(player.getLocation(), "entity.player.levelup", 1, 1);
+                                player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
 
                                 new BukkitRunnable() {
                                     @Override
@@ -102,7 +103,7 @@ public final class Main extends JavaPlugin {
 
                         for (Player player : getServer().getOnlinePlayers()) {
                             player.sendTitle(ChatColor.GREEN + "뽑는 중...", ChatColor.YELLOW + dataValue, 0, 3, 0);
-                            player.playSound(player.getLocation(), "entity.experience_orb.pickup", 1, 1);
+                            player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
                         }
 
                         count++;
