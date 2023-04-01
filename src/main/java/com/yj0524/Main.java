@@ -45,7 +45,6 @@ public final class Main extends JavaPlugin {
     public void loadConfig() {
         // Load config
         FileConfiguration config = getConfig();
-        // default : Arrays.asList("wow", "wonderful", "god")
         data = config.getStringList("datum");
         if (data == null || data.isEmpty()) {
             // datum 값이 없을 경우 기본값으로 설정
@@ -62,11 +61,7 @@ public final class Main extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("configreload")) {
             if (sender.isOp()) {
-                reloadConfig();
-                config = getConfig();
-                data = config.getStringList("datum");
-                sender.sendMessage(ChatColor.GREEN + "Config reloaded.");
-                return true;
+                loadConfig();
             }
         }
         if (command.getName().equalsIgnoreCase("roulette")) {
