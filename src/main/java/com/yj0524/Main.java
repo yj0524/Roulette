@@ -16,7 +16,6 @@ import java.util.Random;
 
 public final class Main extends JavaPlugin {
 
-    public FileConfiguration config;
     public List<String> data;
 
     @Override
@@ -61,7 +60,16 @@ public final class Main extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("configreload")) {
             if (sender.isOp()) {
-                loadConfig();
+                sender.sendMessage(ChatColor.GREEN + "Config Reloaded");
+
+                reloadConfig();
+                data = getConfig().getStringList("datum");
+                if (data == null || data.isEmpty()) {
+                    // datum 값이 없을 경우 기본값으로 설정
+                    data = Arrays.asList("wow", "wonderful", "god");
+                    getConfig().set("datum", data);
+                    saveConfig();
+                }
             }
         }
         if (command.getName().equalsIgnoreCase("roulette")) {
@@ -90,16 +98,7 @@ public final class Main extends JavaPlugin {
                             return;
                         }
 
-                        String dataValue = "";
-                        String oldDataValue = "";
-
-                        while(true) {
-                            dataValue = data.get(new Random().nextInt(data.size()));
-                            if (!dataValue.equals(oldDataValue)) {
-                                oldDataValue = dataValue;
-                                break;
-                            }
-                        }
+                        String dataValue = data.get(new Random().nextInt(data.size()));
 
                         for (Player player : getServer().getOnlinePlayers()) {
                             player.sendTitle(ChatColor.GREEN + "뽑는 중...", ChatColor.YELLOW + dataValue, 0, 3, 0);
