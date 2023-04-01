@@ -1,5 +1,6 @@
 package com.yj0524;
 
+import com.yj0524.TabCom.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -22,6 +23,9 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         getLogger().info("Plugin Enabled");
+
+        getCommand("roulette").setTabCompleter(new RouletteTabCom());
+        getCommand("configreload").setTabCompleter(new ConfigReloadTabCom());
 
         // Config.yml 파일 생성
         loadConfig();
